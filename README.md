@@ -1,6 +1,9 @@
 # About this project
 
 ## Description
+
+**Disclaimer: This project is still heavily work in progress. So it will not work as expected and may not work completely in some areas**
+
 This project is my implementation of a Cloud Storage System, where you can set up a Device as your host and connect to it via the PyDrive Application for file transfer. The end goal of this project is, that a user is able to self-host a their own Cloud Storage Drive Service.
 
 ## Usage description
