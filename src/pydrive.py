@@ -5,6 +5,7 @@ import pathlib
 import shutil
 from DatabaseInfo import DatabaseInfo
 from Database import Database
+from parsing import Parser
 
 
 
@@ -160,31 +161,28 @@ def pydrive_target_switch() -> None:
 
 
 
-def get_case() -> None:
-    if len(sys.argv) == 2 and sys.argv[1] == 'init':
-        pydrive_init()                                          # init the pydrive system
-    elif sys.argv[1] == 'target':
-        if len(sys.argv) == 5 and sys.argv[2] == 'add':         
-            pydrive_target_add()                                # instanciates a drive location
-        elif len(sys.argv) == 4 and sys.argv[2] == 'remove':
-            pydrive_target_remove()                             # deletes all data and drive
-        elif len(sys.argv) == 3 and sys.argv[2] == 'list':
-            pydrive_target_list()                               # list all available drives
-        elif len(sys.argv) == 4 and sys.argv[2] == 'switch':
-            pydrive_target_switch()                             # switch your current drive 
-    else:
-        print("Invalid command or missing argument\nTry: pydrive <command> <argument>")
-        sys.exit(1)
-
-
-
 # main --------------------------------------------------------------------------------------------
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Try: pydrive <command> <argument>\nOr: pydrive help")
-        sys.exit(1)
 
-    get_case()
+    parser1 = Parser()
+
+    args = parser1.parser.parse_args()
+    if args.command == 'init':
+        pydrive_init()
+    elif args.command == 'target':
+        if args.subcommand == 'add':
+            pydrive_target_add()
+        elif args.subcommand == 'remove':
+            pydrive_target_remove()
+        elif args.subcommand == 'list':
+            pydrive_target_list()
+        elif args.subcommand == 'switch':
+            pydrive_target_switch()
+        else:
+            print('subcommand is not viable')
+    else:
+        print('Invalid command or missing argument')
+        sys.exit(1)
 
 
 

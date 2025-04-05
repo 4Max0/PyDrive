@@ -90,6 +90,7 @@ class DatabaseInfo:
         self.cur.execute('SELECT * FROM drive')
         drives = self.cur.fetchall()
 
+        # in case there is no target
         if not drives:
             sys.exit(0)
 
@@ -119,6 +120,8 @@ class DatabaseInfo:
 
         self.cur.execute('DELETE FROM drive WHERE name = ?', (name,))
         self.con.commit()
+
+
 
     def get_password(self, id : int) -> Optional[Tuple[bytes, bytes]]:
         self.cur.execute('SELECT password, salt FROM databpwd WHERE id = ?', (id,))
